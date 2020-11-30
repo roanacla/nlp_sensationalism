@@ -26,6 +26,7 @@ class SensaEncoder():
     
   def encodeText(self, text, dimension=768):
     # Add BERT  the special tokens.
+    text = (text[:500]) if len(text) > 512 else text
     marked_text = "[CLS] " + text + " [SEP]"
     
     # Split the sentence into tokens.
