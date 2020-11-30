@@ -34,7 +34,7 @@ class SensaScorer():
                                                               output_hidden_states=False)
     self.model.to(self.device)
     gdd.download_file_from_google_drive(file_id='1SpfmiCq2a2aXTXvFW6cHnm-0eBCpcyxY',
-                                  dest_path='../sensationalism_BERT_best.model',
+                                  dest_path='./sensationalism_BERT_best.model',
                                   unzip=False)
     
   def getScore(self,title):
