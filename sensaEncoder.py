@@ -1,6 +1,7 @@
 import torch
 from transformers import BertTokenizer, BertForSequenceClassification
 from google_drive_downloader import GoogleDriveDownloader as gdd
+import pandas as pd
 
 class SensaEncoder():
   def __init__(self):
@@ -62,3 +63,24 @@ class SensaEncoder():
     sentence_embedding = torch.mean(token_vecs, dim=0)
 
     return sentence_embedding[:dimension]
+
+  def encodedLiarLiar(self, dataset, dimension=768):
+    statements = dataset.Statement.tolist()
+    encoded_statements = []
+    for statement in statements:
+      a = self.encodeText(statement, dimension=dimension)
+      encoded_statements.append(a.numpy())
+    
+    df = pd.DataFrame()
+
+    for a in encoded_statements:
+      df = df.append({'a':a[0],'b':a[1],'c':a[2],'d':a[3],'e':a[4],
+                      'f':a[5],'g':a[6],'h':a[7],'i':a[8],'j':a[9],
+                      'k':a[10],'l':a[11],'m':a[12],'n':a[13],'o':a[14],
+                      'p':a[15]}, ignore_index=True)
+    
+    return df
+
+  def getEncodedLiarLiar(self):
+    df = pd.read_csv('./nlp_sensationalism/liarliarEncodedTrain.csv')
+    return df
